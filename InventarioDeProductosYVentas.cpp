@@ -17,6 +17,28 @@ struct Venta {
     float precioTotal;
 };
 
+void registrarProducto(Producto productos[], int &numProductos) {
+    if (numProductos < MAX_PRODUCTOS) {
+        Producto nuevo;
+        cout << "Ingrese nombre del producto: ";
+        cin.ignore();
+        cin.getline(nuevo.nombre, MAX_NOMBRE);
+        cout << "Ingrese precio del producto: ";
+        cin >> nuevo.precio;
+        productos[numProductos] = nuevo;
+        numProductos++;
+        cout << "Producto registrado exitosamente.\n";
+    } else {
+        cout << "La lista de productos está llena. No se pueden agregar más productos.\n";
+    }
+}
+
+void listarProductos(const Producto productos[], int numProductos) {
+    for (int i = 0; i < numProductos; i++) {
+        cout << "Nombre: " << productos[i].nombre << ", Precio: " << productos[i].precio << '\n';
+    }
+}
+
 int main() {
     SetConsoleOutputCP(CP_UTF8);
     Producto productos[MAX_PRODUCTOS];
