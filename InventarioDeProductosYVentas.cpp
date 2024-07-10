@@ -39,6 +39,62 @@ void listarProductos(const Producto productos[], int numProductos) {
     }
 }
 
+void buscarProducto(const Producto productos[], int numProductos) {
+    char nombre[MAX_NOMBRE];
+    cout << "Ingrese el nombre del producto a buscar: ";
+    cin.ignore();
+    cin.getline(nombre, MAX_NOMBRE);
+    bool encontrado = false;
+    for (int i = 0; i < numProductos; i++) {
+        if (strcmp(productos[i].nombre, nombre) == 0) {
+            cout << "Producto encontrado: Nombre: " << productos[i].nombre << ", Precio: " << productos[i].precio << '\n';
+            encontrado = true;
+            break;
+        }
+    }
+    if (!encontrado) {
+        cout << "Producto no encontrado.\n";
+    }
+}
+
+void actualizarProducto(Producto productos[], int numProductos) {
+    char nombre[MAX_NOMBRE];
+    cout << "Ingrese el nombre del producto a actualizar: ";
+    cin.ignore();
+    cin.getline(nombre, MAX_NOMBRE);
+    bool encontrado = false;
+    for (int i = 0; i < numProductos; i++) {
+        if (strcmp(productos[i].nombre, nombre) == 0) {
+            cout << "Ingrese el nuevo precio del producto: ";
+            cin >> productos[i].precio;
+            encontrado = true;
+            cout << "Producto actualizado exitosamente.\n";
+            break;
+        }
+    }
+    if (!encontrado) {
+        cout << "Producto no encontrado.\n";
+    }
+}
+
+void eliminarProducto(Producto productos[], int &numProductos) {
+    char nombre[MAX_NOMBRE];
+    cout << "Ingrese el nombre del producto a eliminar: ";
+    cin.ignore();
+    cin.getline(nombre, MAX_NOMBRE);
+    for (int i = 0; i < numProductos; i++) {
+        if (strcmp(productos[i].nombre, nombre) == 0) {
+            for (int j = i; j < numProductos - 1; j++) {
+                productos[j] = productos[j + 1];
+            }
+            numProductos--;
+            cout << "Producto eliminado exitosamente.\n";
+            return;
+        }
+    }
+    cout << "Producto no encontrado.\n";
+}
+
 int main() {
     SetConsoleOutputCP(CP_UTF8);
     Producto productos[MAX_PRODUCTOS];
