@@ -95,6 +95,44 @@ void eliminarProducto(Producto productos[], int &numProductos) {
     cout << "Producto no encontrado.\n";
 }
 
+void registrarVenta(Venta ventas[], const Producto productos[], int &contadorVentas, int numProductos) {
+    Venta nueva;
+    cout << "Ingrese el nombre del producto vendido: ";
+    cin.ignore();
+    cin.getline(nueva.producto, MAX_NOMBRE);
+    cout << "Ingrese la cantidad vendida: ";
+    cin >> nueva.cantidad;
+    bool encontrado = false;
+    for (int i = 0; i < numProductos; i++) {
+        if (strcmp(productos[i].nombre, nueva.producto) == 0) {
+            nueva.idVenta = ++contadorVentas;
+            nueva.precioTotal = productos[i].precio * nueva.cantidad;
+            ventas[contadorVentas - 1] = nueva;
+            cout << "Venta registrada exitosamente.\n";
+            encontrado = true;
+            break;
+        }
+    }
+    if (!encontrado) {
+        cout << "Producto no encontrado. Venta no registrada.\n";
+    }
+}
+
+void listarVentas(const Venta ventas[], int contadorVentas) {
+    for (int i = 0; i < contadorVentas; i++) {
+        cout << "ID Venta: " << ventas[i].idVenta << ", Producto: " << ventas[i].producto
+             << ", Cantidad: " << ventas[i].cantidad << ", Precio Total: " << ventas[i].precioTotal << '\n';
+    }
+}
+
+void calcularTotalVentas(const Venta ventas[], int contadorVentas) {
+    float total = 0;
+    for (int i = 0; i < contadorVentas; i++) {
+        total += ventas[i].precioTotal;
+    }
+    cout << "Total de ventas realizadas: " << total << '\n';
+}
+
 int main() {
     SetConsoleOutputCP(CP_UTF8);
     Producto productos[MAX_PRODUCTOS];
